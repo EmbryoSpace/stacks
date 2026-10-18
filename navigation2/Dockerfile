@@ -74,16 +74,6 @@ RUN source ${SPACEROS_DIR}/setup.bash && \
       --no-warn-unused-cli && \
     rm -rf src build log
 
-
-# Install rviz2 to send goals to Nav2.
-# TODO(asimonov): Remove rviz2 apt install in the future.
-#                 It brings a lot of dependencies with it.
-#                 It installs 146 packages into /opt/ros/jazzy which is confusing as space-ros is in /opt/spaceros.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    sudo apt update && \
-    sudo -E apt install -y ros-${ROS_DISTRO}-rviz2
-
 # Set up the entrypoint
 COPY ./entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
